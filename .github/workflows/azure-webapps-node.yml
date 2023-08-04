@@ -16,6 +16,7 @@
 # For more information on GitHub Actions for Azure: https://github.com/Azure/Actions
 # For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
+name: Build and deploy Angular to an Azure Web App
 
 on:
   push:
@@ -28,9 +29,6 @@ env:
   NODE_VERSION: '14.x'                # set this to the node version to use
   UAT_Env: 'uat'
   PROD_Env: 'production'
-
-permissions:
-  contents: read
 
 jobs:
   build:
@@ -60,10 +58,7 @@ jobs:
   deploy-to-uat:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: 'uat'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+    environment: 'uat'
     steps:
     - name: Download artifact from build job
       uses: actions/download-artifact@v3
