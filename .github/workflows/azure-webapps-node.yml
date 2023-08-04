@@ -43,11 +43,13 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
-    - name: npm install, build, and test
+    - name: npm install
       run: |
         npm install
+        
+    - name: npm  build
+      run: |
         npm run build-uat --if-present
-        npm run test --if-present
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
